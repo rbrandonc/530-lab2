@@ -69,8 +69,8 @@ void mallocTest2() {
 
 void mallocTest3() {
 	int *a = malloc(0);
-	int *aa = malloc(-1);
-	int *aaa = malloc(3000);
+	// int *aa = malloc(-1);
+	// int *aaa = malloc(2048);
 
 	int *b = malloc(31);
 	int *c = malloc(32);
@@ -102,7 +102,6 @@ void mallocTest3() {
 
 	int *w = malloc(2047);
 	int *x = malloc(2048);
-	int *y = malloc(2049);
 }
 
 void mallocTest4() {
@@ -270,9 +269,7 @@ void pageReturnTest1() {
 		free(f);
 		free(g);
 
-		free(x);
 		printf("X Address after free %p\n", x);
-		free(y);
 	  printf("Y Address after free %p\n", y);
 }
 
