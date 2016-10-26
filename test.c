@@ -7,13 +7,13 @@
 
 int main() {
 
-	// printf("test");
+	//printf("test\n");
 
-	// mallocTest1();
-	// mallocTest2();
+	mallocTest1();
+	//mallocTest2();
 	// mallocTest3();
 	// mallocTest4();
-	// mallocTest5();
+	//mallocTest5();
 
 	// freeTest1();
 	// freeTest2();
@@ -352,7 +352,7 @@ void pageReturnTest2() {
 	void *s = malloc(512);
 	void *t = malloc(512);
 	void *u = malloc(512);
-	void *v = malloc(512);
+	void *v2 = malloc(512);
 	void *v = malloc(2048);
 	void *w = malloc(2048);
 	void *x = malloc(2048);
@@ -369,7 +369,6 @@ void pageReturnTest2() {
 	free(f);
 	free(g);
 	free(w);
-	free(x);
 	free(t);
 	free(z);
 

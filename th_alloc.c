@@ -208,9 +208,11 @@ void *malloc(size_t size) {
 
       rv = next->next;
 
-      memset(rv, ALLOC_POISON, bpo);
+      
 
       next->next = next->next->next;
+
+      memset(rv, ALLOC_POISON, bpo);
 
       bkeep->free_count--;
 
