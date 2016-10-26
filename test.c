@@ -33,6 +33,8 @@ int main() {
 }
 
 void mallocTest1() {
+	printf("malloc test 1");
+
 	void *x = malloc(2);    
 	printf("Address %p\n", x);
   void *y = malloc(89);   
@@ -53,9 +55,13 @@ void mallocTest1() {
   printf("Address %p\n", n); 
   void *o = malloc(519);   
   printf("Address %p\n", o); 
+
+  printf("malloc test 1 done");
 }
 
 void mallocTest2() {
+	printf("malloc test 2");
+
 	void *x;
 	int i;
 	for(i = 0; i < 128; i++){
@@ -65,9 +71,13 @@ void mallocTest2() {
 	for(i = 0; i < 128; i++){
 		void *x = malloc(32);
 	}
+
+	printf("malloc test 2 done");
 }
 
 void mallocTest3() {
+	printf("malloc test 3");
+
 	int *a = malloc(0);
 	// int *aa = malloc(-1);
 	// int *aaa = malloc(2048);
@@ -102,15 +112,23 @@ void mallocTest3() {
 
 	int *w = malloc(2047);
 	int *x = malloc(2048);
+
+	printf("malloc test 3 done");
 }
 
 void mallocTest4() {
+	printf("malloc test 4");
+
 	void *num = malloc(3);
 	int number = 927834059873097597940750974029745092734957928734586723846598273450923478;
 	*(int *)(num) = number;
+
+	printf("malloc test 4 done");
 }
 
 void mallocTest5() {
+	printf("malloc test 5");
+
 	int num = 500;
 	srand(time(NULL));
 	int i;
@@ -121,14 +139,22 @@ void mallocTest5() {
 		// printf("test");
 		printf("%d: %p\n",i, x);
 	}
+
+	printf("malloc test 5 done");
 }
 
 void freeTest1() {
+	printf("free test 1");
+
 	void *x = malloc(64);
 	free(x);
+
+	printf("free test 1 done");
 }
 
 void freeTest2() {
+	printf("free test 2");
+
 	void *x = malloc(32);
 	free(x);
 	x = malloc(64);
@@ -143,9 +169,13 @@ void freeTest2() {
 	free(x);
 	x = malloc(2048);
 	free(x);
+
+	printf("free test 2 done");
 }
 
 void freeTest3() {
+	printf("free test 3");
+
 	int *x = malloc(2048);
 	int *c = malloc(2048);
 	int *v = malloc(2048);
@@ -155,9 +185,13 @@ void freeTest3() {
 	free(c);
 	free(v);
 	free(b);
+
+	printf("free test 3 done");
 }
 
 void freeTest4() {
+	printf("free test 4");
+
 	void *x = malloc(2048);
 	free(x);
 	x = malloc(2048);
@@ -172,18 +206,26 @@ void freeTest4() {
 	free(x);
 	x = malloc(2048);
 	free(x);
+
+	printf("free test 4 done");
 }
 
 void freeTest5() {
+	printf("free test 5");
+
 	void *x;
 	int i;
 	for(i = 0; i < 128; i++){
 		x = malloc(32);
 	}
 	free(x);
+
+	printf("free test 5 done");
 }
 
 void poisonTest1() {
+	printf("poison test 1");
+
 	void *x = malloc(2048);    
 	printf("X Address %p\n", x);
 	void *y = malloc(2048);   
@@ -193,9 +235,13 @@ void poisonTest1() {
 	printf("X Address after free %p\n", x);
 	free(y);
   printf("Y Address after free %p\n", y);
+
+  printf("poison test 1 done");
 }
 
 void poisonTest2() {
+	printf("poison test 2");
+
 	void *x = malloc(2);    
 	printf("Address %p\n", x);
 	free(x);
@@ -210,9 +256,13 @@ void poisonTest2() {
   printf("Address %p\n", z);
   free(z);
   printf("Address after free %p\n", z);
+
+  printf("poison test 2 done");
 }
 
 void poisonTest3() {
+	printf("poison test 3");
+
 	void *num = malloc(3);
 	printf("Num Address %p\n", num);
 	int number = 2937495087203984750873904750972340572930487592038475;
@@ -239,9 +289,12 @@ void poisonTest3() {
   printf("Address %p\n", a);
   free(a);
   printf("Address after free %p\n", a);
+
+  printf("poison test 3 done");
 }
 
 void pageReturnTest1() {
+		printf("page return test 1");
 		void *x = malloc(2048);  
 		printf("X Address %p\n", x);
 		void *y = malloc(2048);   
@@ -271,6 +324,8 @@ void pageReturnTest1() {
 
 		printf("X Address after free %p\n", x);
 	  printf("Y Address after free %p\n", y);
+
+	  printf("page return test 1 done");
 }
 
 void pageReturnTest2() {
