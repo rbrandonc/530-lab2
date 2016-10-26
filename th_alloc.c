@@ -82,7 +82,7 @@ static inline int size2level (ssize_t size) {
    * the second level represents 2^6, etc.
    */
 
-  if(size <= 32)
+  if(size > 0 && size <= 32)
     return 0;
   if(size > 32 && size <= 64)
     return 1;
@@ -97,6 +97,7 @@ static inline int size2level (ssize_t size) {
   if(size > 1024 && size <= 2048)
     return 6;
 
+  //Can't return null
   return -1;
 }
 
@@ -272,12 +273,28 @@ void free(void *ptr) {
 
   memset((void *) (ptr+sizeof(struct object *)), FREE_POISON, bpo-sizeof(struct object *));
 
+  bkeep = levels[bkeep->level].next;
+
   while (levels[bkeep->level].whole_superblocks > RESERVE_SUPERBLOCK_THRESHOLD) {
     // Exercise 4: Your code here
     // Remove a whole superblock from the level
     // Return that superblock to the OS, using mmunmap
 
-    break; // hack to keep this loop from hanging; remove in ex 4
+    
+      if(bkeep->next->free_count == fo-1){
+        struct object* tmp = bkeep->next;
+        bkeep->next = bkeep->next->next;
+
+        munmap(&tmp, sizeof(tmp));
+
+        levels[bkeep->level].whole_superblocks--;
+        levels[bkeep->level].free_objects -= fo-1;
+        break;
+      }
+      else{
+        bkeep = bkeep->next;
+      }
+    //break; // hack to keep this loop from hanging; remove in ex 4
   }
 
 
