@@ -30,7 +30,7 @@
 #define assert(cond) if (!(cond)) __asm__ __volatile__ ("int $3")
 
 /* Object: One return from malloc/input to free. */
-struct __attribute__((packed)) object {
+ struct __attribute__((packed)) object {
   union {
     struct object *next; // For free list (when not in use)
     char * raw; // Actual data
@@ -40,14 +40,14 @@ struct __attribute__((packed)) object {
 /* Super block bookeeping; one per superblock.  "steal" the first
  * object to store this structure
  */
-struct __attribute__((packed)) superblock_bookkeeping {
+ struct __attribute__((packed)) superblock_bookkeeping {
   struct superblock_bookkeeping * next; // next super block
   struct object *free_list;
   // Free count in this superblock
   uint8_t free_count; // Max objects per superblock is 128-1, so a byte is sufficient
   uint8_t level;
 };
-  
+
 /* Superblock: a chunk of contiguous virtual memory.
  * Subdivide into allocations of same power-of-two size. */
 struct __attribute__((packed)) superblock {
@@ -67,12 +67,12 @@ struct superblock_pool {
 // 10^5 -- 10^11 == 7 levels
 #define LEVELS 7
 static struct superblock_pool levels[LEVELS] = {{NULL, 0, 0},
-						{NULL, 0, 0},
-						{NULL, 0, 0},
-						{NULL, 0, 0},
-						{NULL, 0, 0},
-						{NULL, 0, 0},
-						{NULL, 0, 0}
+{NULL, 0, 0},
+{NULL, 0, 0},
+{NULL, 0, 0},
+{NULL, 0, 0},
+{NULL, 0, 0},
+{NULL, 0, 0}
 };
 
 static inline int size2level (ssize_t size) {
@@ -82,7 +82,7 @@ static inline int size2level (ssize_t size) {
    * the second level represents 2^6, etc.
    */
 
-  if(size > 0 && size <= 32)
+   if(size > 0 && size <= 32)
     return 0;
   if(size > 32 && size <= 64)
     return 1;
@@ -136,11 +136,11 @@ struct superblock_bookkeeping * alloc_super (int power) {
 
   free_objects = SUPER_BLOCK_SIZE/bytes_per_object;
 
-  //free_objects--;
+  free_objects--;
 
-  sb->bkeep.free_count = free_objects-1;
+  sb->bkeep.free_count = free_objects;
 
-  levels[power].free_objects += free_objects-1;
+  levels[power].free_objects += free_objects;
 
 
 
@@ -180,59 +180,64 @@ void *malloc(size_t size) {
 
   if (!pool->free_objects) {
     bkeep = alloc_super(power);
-  } else
+  } 
+  else{
     bkeep = pool->next;
+  }
 
-  while (bkeep != NULL) {
-    if (bkeep->free_count) {
-      struct object *next = bkeep->free_list;
+  int bpo = 32;
+  int i;
+
+  for(i = 0; i < power; i++){
+   bpo = bpo * 2;
+ }
+
+ int fo = SUPER_BLOCK_SIZE/bpo;
+
+ while (bkeep != NULL) {
+  if (bkeep->free_count) {
+    struct object *next = bkeep->free_list;
       /* Remove an object from the free list. */
       // Your code here
       //
       // NB: If you take the first object out of a whole
       //     superblock, decrement levels[power]->whole_superblocks
 
+    rv = next->next;
 
-      int bpo = 32;
-      int i;
 
-      for(i = 0; i < power; i++){
-        bpo = bpo * 2;
-      }
 
-      int fo = SUPER_BLOCK_SIZE/bpo;
-//check this shit later
-      if(bkeep->free_count == fo-1){
-        levels[power].whole_superblocks--;
-      }
+    next->next = next->next->next;
 
-      rv = next->next;
 
-      
+      //check this shit later
+    if(bkeep->free_count == fo-1){
+     levels[power].whole_superblocks--;
+   }
 
-      next->next = next->next->next;
 
-      memset(rv, ALLOC_POISON, bpo);
 
-      bkeep->free_count--;
+   bkeep->free_count--;
 
-      levels[power].free_objects--;
+   levels[power].free_objects--;
 
-      break;
-    }
-  }
+   break;
+ }
+}
 
   // assert that rv doesn't end up being NULL at this point
-  assert(rv != NULL);
+assert(rv != NULL);
 
   /* Exercise 3: Poison a newly allocated object to detect init errors.
    * Hint: use ALLOC_POISON
    */
-  return rv;
-}
+   memset(rv, ALLOC_POISON, bpo);
 
-static inline
-struct superblock_bookkeeping * obj2bkeep (void *ptr) {
+   return rv;
+ }
+
+ static inline
+ struct superblock_bookkeeping * obj2bkeep (void *ptr) {
   uint64_t addr = (uint64_t) ptr;
   addr &= SUPER_BLOCK_MASK;
   return (struct superblock_bookkeeping *) addr;
@@ -273,7 +278,7 @@ void free(void *ptr) {
     levels[bkeep->level].whole_superblocks++;
   }
 
-  memset((void *) (ptr+sizeof(struct object *)), FREE_POISON, bpo-sizeof(struct object *));
+  
 
   bkeep = levels[bkeep->level].next;
 
@@ -282,34 +287,33 @@ void free(void *ptr) {
     // Remove a whole superblock from the level
     // Return that superblock to the OS, using mmunmap
 
-    
-      if(bkeep->next->free_count == fo-1){
-        struct object* tmp = bkeep->next;
-        bkeep->next = bkeep->next->next;
 
-        munmap(&tmp, sizeof(tmp));
+    if(bkeep->next->free_count == fo-1){
+      struct superblock_bookkeeping* tmp = bkeep->next;
+      bkeep->next = bkeep->next->next;
 
-        levels[bkeep->level].whole_superblocks--;
-        levels[bkeep->level].free_objects -= fo-1;
-        break;
-      }
-      else{
-        bkeep = bkeep->next;
-      }
+      munmap(&tmp, sizeof(tmp));
+
+      levels[bkeep->level].whole_superblocks--;
+      levels[bkeep->level].free_objects -= fo-1;
+    }
+
+    bkeep = bkeep->next;
+
     //break; // hack to keep this loop from hanging; remove in ex 4
   }
 
 
-  
+  memset((void *) (ptr+sizeof(struct object *)), FREE_POISON, bpo-sizeof(struct object *));
   /* Exercise 3: Poison a newly freed object to detect use-after-free errors.
    * Hint: use FREE_POISON
    */
 
 
-}
+ }
 
 // Do NOT touch this - this will catch any attempt to load this into a multi-threaded app
-int pthread_create(void __attribute__((unused)) *x, ...) {
+ int pthread_create(void __attribute__((unused)) *x, ...) {
   exit(-ENOSYS);
 }
 
