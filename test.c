@@ -9,21 +9,21 @@ int main() {
 
 	//printf("test\n");
 
-	// mallocTest1();
-	// mallocTest2();
-	// mallocTest3();
-	// mallocTest4();
-	// mallocTest5();
+	mallocTest1();
+	mallocTest2();
+	mallocTest3();
+	mallocTest4();
+	mallocTest5();
 
-	// freeTest1();
-	// freeTest2();
-	//freeTest3();
-	// freeTest4();
-	// freeTest5();
+	freeTest1();
+	freeTest2();
+	freeTest3();
+	freeTest4();
+	freeTest5();
 
-	//poisonTest1();
-	// poisonTest2();
-	// poisonTest3();
+	poisonTest1();
+	poisonTest2();
+	poisonTest3();
 
 	//pageReturnTest1();
 	// pageReturnTest2();
@@ -229,16 +229,14 @@ void poisonTest1() {
 	int n=512, i =0;
 	unsigned char* byte_array = malloc(512);
 
-	while (i < n)
-	{
+	while (i < n) {
 	     printf("%02X",(unsigned)byte_array[i]);
 	     i++;
 	}
 
 	free(byte_array);
 
-	while (i < n)
-	{
+	while (i < n) {
 	     printf("%02X",(unsigned)byte_array[i]);
 	     i++;
 	}
@@ -252,16 +250,14 @@ void poisonTest2() {
 	int n=2048, i =0;
 	unsigned char* byte_array = malloc(2048);
 
-	while (i < n)
-	{
+	while (i < n) {
 	     printf("%02X",(unsigned)byte_array[i]);
 	     i++;
 	}
 
 	free(byte_array);
 
-	while (i < n)
-	{
+	while (i < n) {
 	     printf("%02X",(unsigned)byte_array[i]);
 	     i++;
 	}
@@ -278,11 +274,27 @@ void poisonTest3() {
 	unsigned char* byte_array4 = malloc(1024);
 	unsigned char* byte_array5 = malloc(2048);
 
-	printf("one %hx\n", byte_array1);
-	printf("two %hx\n", byte_array2);
-	printf("three %hx\n", byte_array3);
-	printf("four %hx\n", byte_array4);
-	printf("five %hx\n", byte_array5);
+	int i = 0;
+	printf("\nbefore free\n");
+	for (i = 0; i<32; i++) {
+		printf("%02X", (unsigned)byte_array1[i]);
+	}
+	printf("\n");
+	for (i = 0; i<64; i++) {
+		printf("%02X", (unsigned)byte_array2[i]);
+	}
+	printf("\n");
+	for (i = 0; i<128; i++) {
+		printf("%02X", (unsigned)byte_array3[i]);
+	}
+	printf("\n");
+	for (i = 0; i<1024; i++) {
+		printf("%02X", (unsigned)byte_array4[i]);
+	}
+	printf("\n");
+	for (i = 0; i<2048; i++) {
+		printf("%02X", (unsigned)byte_array5[i]);
+	}
 
 	free(byte_array1);
 	free(byte_array2);
@@ -290,11 +302,26 @@ void poisonTest3() {
 	free(byte_array4);
 	free(byte_array5);
 
-	printf("one after %hx\n", byte_array1);
-	printf("two after %hx\n", byte_array2);
-	printf("three after %hx\n", byte_array3);
-	printf("four after %hx\n", byte_array4);
-	printf("five after %hx\n", byte_array5);
+	printf("\nafter free\n");
+	for (i = 0; i<32; i++) {
+		printf("%02X", (unsigned)byte_array1[i]);
+	}
+	printf("\n");
+	for (i = 0; i<64; i++) {
+		printf("%02X", (unsigned)byte_array2[i]);
+	}
+	printf("\n");
+	for (i = 0; i<128; i++) {
+		printf("%02X", (unsigned)byte_array3[i]);
+	}
+	printf("\n");
+	for (i = 0; i<1024; i++) {
+		printf("%02X", (unsigned)byte_array4[i]);
+	}
+	printf("\n");
+	for (i = 0; i<2048; i++) {
+		printf("%02X", (unsigned)byte_array5[i]);
+	}
 
   printf("poison test 3 done\n");
 }
