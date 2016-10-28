@@ -278,11 +278,11 @@ void poisonTest3() {
 	unsigned char* byte_array4 = malloc(1024);
 	unsigned char* byte_array5 = malloc(2048);
 
-	printf("one %hx", byte_array1);
-	printf("two %hx", byte_array2);
-	printf("three %hx", byte_array3);
-	printf("four %hx", byte_array4);
-	printf("five %hx", byte_array5);
+	printf("one %hx\n", byte_array1);
+	printf("two %hx\n", byte_array2);
+	printf("three %hx\n", byte_array3);
+	printf("four %hx\n", byte_array4);
+	printf("five %hx\n", byte_array5);
 
 	free(byte_array1);
 	free(byte_array2);
@@ -290,11 +290,11 @@ void poisonTest3() {
 	free(byte_array4);
 	free(byte_array5);
 
-	printf("one after %hx", byte_array1);
-	printf("two after %hx", byte_array2);
-	printf("three after %hx", byte_array3);
-	printf("four after %hx", byte_array4);
-	printf("five after %hx", byte_array5);
+	printf("one after %hx\n", byte_array1);
+	printf("two after %hx\n", byte_array2);
+	printf("three after %hx\n", byte_array3);
+	printf("four after %hx\n", byte_array4);
+	printf("five after %hx\n", byte_array5);
 
   printf("poison test 3 done\n");
 }
