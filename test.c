@@ -7,27 +7,6 @@
 
 int main() {
 
-
-
-	// for(int i = 0; i < 50; i++){
-	// 	void *a = malloc(2048);
-	// 	//printf("Address: %p     Content: %c\n", a, a);
-	// }
-	//printf("test");
-
-	int n=512, i =0;
-	unsigned char* byte_array = malloc(512);
-
-	free(byte_array);
-
-	while (i < n)
-	{
-	     printf("%02X",(unsigned)byte_array[i]);
-	     i++;
-	}
-
-	printf("shit");
-
 	//printf("test\n");
 
 	// mallocTest1();
@@ -247,15 +226,22 @@ void freeTest5() {
 void poisonTest1() {
 	printf("poison test 1\n");
 
-	void *x = malloc(2048);    
-	printf("X Address %p\n", x);
-	void *y = malloc(2048);   
-	printf("Y Address %p\n", y);
+	int n=512, i =0;
+	unsigned char* byte_array = malloc(512);
 
-	free(x);
-	printf("X Address after free %p\n", x);
-	free(y);
-  printf("Y Address after free %p\n", y);
+	while (i < n)
+	{
+	     printf("%02X",(unsigned)byte_array[i]);
+	     i++;
+	}
+
+	free(byte_array);
+
+	while (i < n)
+	{
+	     printf("%02X",(unsigned)byte_array[i]);
+	     i++;
+	}
 
   printf("poison test 1 done\n");
 }
@@ -263,20 +249,22 @@ void poisonTest1() {
 void poisonTest2() {
 	printf("poison test 2\n");
 
-	void *x = malloc(2);    
-	printf("Address %p\n", x);
-	free(x);
-	printf("Address after free %p\n", x);
+	int n=2048, i =0;
+	unsigned char* byte_array = malloc(2048);
 
-  void *y = malloc(89);   
-  printf("Address %p\n", y);
-  free(y);
-  printf("Address after free %p\n", y);
+	while (i < n)
+	{
+	     printf("%02X",(unsigned)byte_array[i]);
+	     i++;
+	}
 
-  void *z = malloc(21);
-  printf("Address %p\n", z);
-  free(z);
-  printf("Address after free %p\n", z);
+	free(byte_array);
+
+	while (i < n)
+	{
+	     printf("%02X",(unsigned)byte_array[i]);
+	     i++;
+	}
 
   printf("poison test 2 done\n");
 }
@@ -284,32 +272,29 @@ void poisonTest2() {
 void poisonTest3() {
 	printf("poison test 3\n");
 
-	void *num = malloc(3);
-	printf("Num Address %p\n", num);
-	int number = 2937495087203984750873904750972340572930487592038475;
-	*(int *)(num) = number;
-	free(num);
-	printf("Num Address after free %p\n", num);
+	unsigned char* byte_array1 = malloc(32);
+	unsigned char* byte_array2 = malloc(64);
+	unsigned char* byte_array3 = malloc(128);
+	unsigned char* byte_array4 = malloc(1024);
+	unsigned char* byte_array5 = malloc(2048);
 
-	void *x = malloc(2048);    
-	printf("Address %p\n", x);
-	free(x);
-	printf("Address after free %p\n", x);
+	printf("one %hx", byte_array1);
+	printf("two %hx", byte_array2);
+	printf("three %hx", byte_array3);
+	printf("four %hx", byte_array4);
+	printf("five %hx", byte_array5);
 
-  void *y = malloc(32);   
-  printf("Address %p\n", y);
-  free(y);
-  printf("Address after free %p\n", y);
+	free(byte_array1);
+	free(byte_array2);
+	free(byte_array3);
+	free(byte_array4);
+	free(byte_array5);
 
-  void *z = malloc(64);
-  printf("Address %p\n", z);
-  free(z);
-  printf("Address after free %p\n", z);
-
-  void *a = malloc(78);
-  printf("Address %p\n", a);
-  free(a);
-  printf("Address after free %p\n", a);
+	printf("one after %hx", byte_array1);
+	printf("two after %hx", byte_array2);
+	printf("three after %hx", byte_array3);
+	printf("four after %hx", byte_array4);
+	printf("five after %hx", byte_array5);
 
   printf("poison test 3 done\n");
 }
