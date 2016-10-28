@@ -15,6 +15,19 @@ int main() {
 	// }
 	//printf("test");
 
+	int n=512, i =0;
+	unsigned char* byte_array = malloc(512);
+
+	free(byte_array);
+
+	while (i < n)
+	{
+	     printf("%02X",(unsigned)byte_array[i]);
+	     i++;
+	}
+
+	printf("shit");
+
 	//printf("test\n");
 
 	// mallocTest1();
@@ -25,13 +38,13 @@ int main() {
 
 	// freeTest1();
 	// freeTest2();
-	// freeTest3();
+	//freeTest3();
 	// freeTest4();
 	// freeTest5();
 
-	poisonTest1();
-	poisonTest2();
-	poisonTest3();
+	//poisonTest1();
+	// poisonTest2();
+	// poisonTest3();
 
 	//pageReturnTest1();
 	// pageReturnTest2();
