@@ -7,35 +7,13 @@
 
 int main() {
 
-		
-	void *a = malloc(1024);
-	void *b = malloc(1024);
-	void *c = malloc(1024);
-	void *d = malloc(1024);
-	void *e = malloc(1024);
-	void *f = malloc(1024);
-	void *g = malloc(1024);
-	void *h = malloc(1024);
-	void *i = malloc(1024);
-	void *j = malloc(1024);
-	void *k = malloc(1024);
-	void *l = malloc(1024);
-	void *m = malloc(1024);
-	void *n = malloc(1024);
-	void *o = malloc(1024);
 
-	free(a);
-	free(b);
-	free(c);
-	free(d);
-	free(e);
-	free(f);
-	free(g);
-	free(h);
-	free(i);
-	free(j);
-	free(k);
 
+	// for(int i = 0; i < 50; i++){
+	// 	void *a = malloc(2048);
+	// 	//printf("Address: %p     Content: %c\n", a, a);
+	// }
+	//printf("test");
 
 	//printf("test\n");
 
@@ -47,13 +25,13 @@ int main() {
 
 	// freeTest1();
 	// freeTest2();
-	//freeTest3();
+	// freeTest3();
 	// freeTest4();
 	// freeTest5();
 
-	// poisonTest1();
-	// poisonTest2();
-	// poisonTest3();
+	poisonTest1();
+	poisonTest2();
+	poisonTest3();
 
 	//pageReturnTest1();
 	// pageReturnTest2();

@@ -250,17 +250,6 @@ void free(void *ptr) {
 
 
   //Add back to list
-  struct object* tmp = (struct object *) ptr;
-  tmp->next = &bkeep->free_list->next;
-
-
-  bkeep->free_list->next = ptr;
-
-  //Book keeping
-
-  bkeep->free_count++;
-
-  levels[bkeep->level].free_objects++;
 
   int bpo = 32;
   int i;
@@ -270,6 +259,20 @@ void free(void *ptr) {
   }
 
   int fo = SUPER_BLOCK_SIZE/bpo;
+
+  memset(ptr, FREE_POISON, bpo);
+
+  struct object* tmp = (struct object *) ptr;
+  tmp->next = bkeep->free_list;
+
+
+  bkeep->free_list = ptr;
+
+  //Book keeping
+
+  bkeep->free_count++;
+
+  levels[bkeep->level].free_objects++;
 
   if(bkeep->free_count == fo-1){
     levels[bkeep->level].whole_superblocks++;
@@ -301,7 +304,7 @@ void free(void *ptr) {
   }
 
 
-  memset((void *) (ptr+sizeof(struct object *)), FREE_POISON, bpo-sizeof(struct object *));
+  
   /* Exercise 3: Poison a newly freed object to detect use-after-free errors.
    * Hint: use FREE_POISON
    */
