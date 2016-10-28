@@ -10,6 +10,10 @@ given in the completion of this work
 WHAT WE DID
 Implemented malloc and free; hoard-style allocator
 Assignment description - "a simple, single-threaded malloc and free, for small objects"
+Implemented malloc
+Implemented free
+Implemented memory poisoning
+Returned pages to OS using munmap
 
 APPROACH
 Used gdb a lot. Ran tests multiple times.
@@ -17,6 +21,7 @@ Used gdb a lot. Ran tests multiple times.
 FILES INCLUDED IN SUBMISSION
 - th_alloc.c - the code for the assignment
 - test.c - the test cases we wrote for the assignment
+  - for page return test cases, looked at memory addresses in gdb
 - README - this document 
 
 Late hours used: 0
