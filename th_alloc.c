@@ -204,7 +204,7 @@ void *malloc(size_t size) {
 
  while (bkeep != NULL) {
   if (bkeep->free_count) {
-    struct object *next = bkeep->free_list;
+    //struct object *next = bkeep->free_list;
       /* Remove an object from the free list. */
       // Your code here
       //
