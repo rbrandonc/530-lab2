@@ -1,5 +1,4 @@
 /* COMP 530 Lab 2
-test.c
 
 Brandon Clark (rbc), PID 720474282
 Audrey Sharp (aud), PID 720473458
@@ -240,6 +239,7 @@ void poisonTest1() {
 	int n=512, i =0;
 	unsigned char* byte_array = malloc(512);
 
+	printf("Before free\n");
 	while (i < n) {
 	     printf("%02X",(unsigned)byte_array[i]);
 	     i++;
@@ -247,6 +247,8 @@ void poisonTest1() {
 
 	free(byte_array);
 
+	i=0;
+	printf("After free\n");
 	while (i < n) {
 	     printf("%02X",(unsigned)byte_array[i]);
 	     i++;
@@ -261,13 +263,15 @@ void poisonTest2() {
 	int n=2048, i =0;
 	unsigned char* byte_array = malloc(2048);
 
+	printf("Before free\n");
 	while (i < n) {
 	     printf("%02X",(unsigned)byte_array[i]);
 	     i++;
 	}
 
 	free(byte_array);
-
+	printf("After free\n");
+	i = 0;
 	while (i < n) {
 	     printf("%02X",(unsigned)byte_array[i]);
 	     i++;
