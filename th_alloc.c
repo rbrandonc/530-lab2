@@ -228,6 +228,9 @@ void *malloc(size_t size) {
 
    break;
  }
+ else{
+  bkeep = bkeep->next;
+ }
 }
 
   // assert that rv doesn't end up being NULL at this point
@@ -297,7 +300,7 @@ void free(void *ptr) {
     // Return that superblock to the OS, using mmunmap
 
 
-    if(bkeep->next->free_count == fo-1){
+    if(bkeep->next->free_count >= fo-1){
       struct superblock_bookkeeping* tmp = bkeep->next;
       bkeep->next = bkeep->next->next;
 

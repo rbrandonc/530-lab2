@@ -17,6 +17,7 @@ given in the completion of this work
 
 int main() {
 
+
 	//printf("test\n");
 
 	mallocTest1();
@@ -35,8 +36,7 @@ int main() {
 	poisonTest2();
 	poisonTest3();
 
-	//pageReturnTest1();
-	// pageReturnTest2();
+	pageReturnTest1();
 
   //printf("malloc");
   return (errno);
@@ -342,75 +342,41 @@ void poisonTest3() {
 }
 
 void pageReturnTest1() {
-		printf("page return test 1\n");
-		void *x = malloc(2048);  
-		printf("X Address %p\n", x);
-		void *y = malloc(2048);   
-		printf("Y Address %p\n", y);
-		
-		void *a = malloc(2048);
-		void *b = malloc(2048);
-		void *c = malloc(2048);
-		void *d = malloc(2048);
-		void *e = malloc(2048);
-		void *f = malloc(2048);
-		void *g = malloc(2048);
-		void *h = malloc(2048);
-		void *i = malloc(2048);
-		void *j = malloc(2048);
-		void *k = malloc(2048);
 
+	//Expected state after running:
+	//Levels[5].free_objects = 2 whole_superblocks = 2
+	//Levels[5].next.free_count = 1;
+	//Levels[5].next.free_list contains an address whos .next = 0x0
+	//Levels[5].next.next.free_count = 1;
+	//Levels[5].next.next.free_list contains an address whos .next = 0x0
 
-
-		free(x);
-		free(y);
-		free(a);
-		free(b);
-		free(c);
-		free(d);
-		free(e);
-		free(f);
-		free(g);
-
-	printf("X Address after free %p\n", x);
-	  printf("Y Address after free %p\n", y);
-
-	  printf("page return test 1 done\n");
-}
-
-void pageReturnTest2() {
-	printf("page return test 2\n");
-
-	void *a = malloc(512);
-	void *b = malloc(512);
-	void *c = malloc(512);
-	void *d = malloc(512);
-	void *e = malloc(512);
-	void *f = malloc(512);
-	void *g = malloc(512);
-	void *h = malloc(512);
-	void *i = malloc(512);
-	void *j = malloc(512);
-	void *k = malloc(512);
-	void *l = malloc(512);
-	void *m = malloc(512);
-	void *n = malloc(512);
-	void *o = malloc(512);
-	void *p = malloc(512);
-	void *q = malloc(512);
-	void *r = malloc(512);
-	void *s = malloc(512);
-	void *t = malloc(512);
-	void *u = malloc(512);
-	void *v2 = malloc(512);
+	void *a = malloc(2048);
+	void *b = malloc(2048);
+	void *c = malloc(2048);
+	void *d = malloc(2048);
+	void *e = malloc(2048);
+	void *f = malloc(2048);
+	void *g = malloc(2048);
+	void *h = malloc(2048);
+	void *i = malloc(2048);
+	void *j = malloc(2048);
+	void *k = malloc(2048);
+	void *l = malloc(2048);
+	void *m = malloc(2048);
+	void *n = malloc(2048);
+	void *o = malloc(2048);
+	void *p = malloc(2048);
+	void *q = malloc(2048);
+	void *r = malloc(2048);
+	void *s = malloc(2048);
+	void *t = malloc(2048);
+	void *u = malloc(2048);
 	void *v = malloc(2048);
 	void *w = malloc(2048);
 	void *x = malloc(2048);
 	void *y = malloc(2048);
 	void *z = malloc(2048);
 
-	free(x);
-	free(y);
 	free(a);
 	free(b);
 	free(c);
@@ -418,10 +384,77 @@ void pageReturnTest2() {
 	free(e);
 	free(f);
 	free(g);
-	free(w);
+	free(h);
+	free(i);
+	free(j);
+	free(k);
+	free(l);
+	free(m);
+	free(n);
+	free(o);
+	free(p);
+	free(q);
+	free(r);
+	free(s);
 	free(t);
+	free(u);
+	free(v);
+	free(w);
+	free(x);
+	free(y);
 	free(z);
 
-	printf("page return test 2 done\n");
-	
+	a = malloc(2048);
+	b = malloc(2048);
+	c = malloc(2048);
+	d = malloc(2048);
+	e = malloc(2048);
+	f = malloc(2048);
+	g = malloc(2048);
+	h = malloc(2048);
+	i = malloc(2048);
+	j = malloc(2048);
+	k = malloc(2048);
+	l = malloc(2048);
+	m = malloc(2048);
+	n = malloc(2048);
+	o = malloc(2048);
+	p = malloc(2048);
+	q = malloc(2048);
+	r = malloc(2048);
+	s = malloc(2048);
+	t = malloc(2048);
+	u = malloc(2048);
+	v = malloc(2048);
+	w = malloc(2048);
+	x = malloc(2048);
+	y = malloc(2048);
+	z = malloc(2048);
+
+	free(a);
+	free(b);
+	free(c);
+	free(d);
+	free(e);
+	free(f);
+	free(g);
+	free(h);
+	free(i);
+	free(j);
+	free(k);
+	free(l);
+	free(m);
+	free(n);
+	free(o);
+	free(p);
+	free(q);
+	free(r);
+	free(s);
+	free(t);
+	free(u);
+	free(v);
+	free(w);
+	free(x);
+	free(y);
+	free(z);
 }
