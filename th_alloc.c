@@ -142,8 +142,6 @@ struct superblock_bookkeeping * alloc_super (int power) {
 
   levels[power].free_objects += free_objects;
 
-
-
   // The following loop populates the free list with some atrocious
   // pointer math.  You should not need to change this, provided that you
   // correctly calculate free_objects.
@@ -193,6 +191,7 @@ void *malloc(size_t size) {
  }
 
  int fo = SUPER_BLOCK_SIZE/bpo;
+ fo--;
 
  while (bkeep != NULL) {
   if (bkeep->free_count) {
@@ -203,17 +202,14 @@ void *malloc(size_t size) {
       // NB: If you take the first object out of a whole
       //     superblock, decrement levels[power]->whole_superblocks
 
-    rv = next->next;
+    rv = bkeep->free_list;
 
+    bkeep->free_list = bkeep->free_list->next;
 
-
-    next->next = next->next->next;
-
-
-      //check this shit later
-    if(bkeep->free_count == fo-1){
+    //Decrease # whole superblocks
+    if(bkeep->free_count == fo){
      levels[power].whole_superblocks--;
-   }
+    }
 
 
 
@@ -231,6 +227,7 @@ assert(rv != NULL);
   /* Exercise 3: Poison a newly allocated object to detect init errors.
    * Hint: use ALLOC_POISON
    */
+
    memset(rv, ALLOC_POISON, bpo);
 
    return rv;
