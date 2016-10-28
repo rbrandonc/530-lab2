@@ -1,4 +1,13 @@
-/* Tar Heels Allocator
+/* COMP 530 Lab 2
+th_alloc.c
+
+Brandon Clark (rbc), PID 720474282
+Audrey Sharp (aud), PID 720473458
+
+UNC Honor Pledge: I certify that no unauthorized assistance has been received or
+given in the completion of this work
+
+Tar Heels Allocator
  * 
  * Simple Hoard-style malloc/free implementation.
  * Not suitable for use for large allocatoins, or 
