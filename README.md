@@ -1,1 +1,1 @@
-# 530-lab2
+A replacement for malloc based on superblock pool memory allocation.
